@@ -10,6 +10,9 @@ import java.util.ArrayList;
 
 public class Gomoku implements ActionListener {
     JFrame window = new JFrame("Gomoku Board");
+
+    JLayeredPane layers = new JLayeredPane();
+
     JButton[][] board = new JButton[15][15];
     int[][] boardMatrix = new int[15][15];
 
@@ -26,6 +29,11 @@ public class Gomoku implements ActionListener {
 
 
     public Gomoku(){
+        window.add(layers);
+        //JPanel topPanel = new JPanel();
+        //layers.add(topPanel, JLayeredPane.PALETTE_LAYER);
+        DrawGridOnJPanel topPanel = new DrawGridOnJPanel();
+        layers.add(topPanel, JLayeredPane.PALETTE_LAYER);
 
         winScreen.setLayout(new BorderLayout());
         winScreen.setSize(200,10);
@@ -41,9 +49,9 @@ public class Gomoku implements ActionListener {
                 board[row][col] = new JButton();
                 board[row][col].addActionListener(this);
                 boardContainer.add(board[row][col]);
-                board[row][col].setBackground(Color.LIGHT_GRAY);
-                board[row][col].setOpaque(true);
-                board[row][col].setBorderPainted(false);
+                //board[row][col].setBackground(Color.LIGHT_GRAY);
+                //board[row][col].setOpaque(true);
+                //board[row][col].setBorderPainted(false);
 
             }
 
