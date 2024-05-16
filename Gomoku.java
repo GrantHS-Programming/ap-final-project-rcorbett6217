@@ -14,8 +14,8 @@ public class Gomoku implements ActionListener {
 
     //JLayeredPane layers = new JLayeredPane();
 
-    JButton[][] board = new JButton[15][15];
-    int[][] boardMatrix = new int[15][15];
+    JButton[][] board = new JButton[14][14];
+    int[][] boardMatrix = new int[14][14];
 
     JFrame winScreen = new JFrame("Congratulations!");
 
@@ -30,7 +30,7 @@ public class Gomoku implements ActionListener {
 
 
     public Gomoku(){
-        //
+
         //window.add(layers);
 
         //JPanel topPanel = new JPanel();
@@ -51,12 +51,13 @@ public class Gomoku implements ActionListener {
             for (int col = 0; col < board[0].length; col++) {
                 board[row][col] = new JButton();
                 board[row][col].addActionListener(this);
+                board[row][col].setSize(50,50);
                 boardContainer.add(board[row][col]);
                 //board[row][col].setBackground(Color.LIGHT_GRAY);
                 //board[row][col].setOpaque(true);
                 //board[row][col].setBorderPainted(false);
-                board[row][col].setContentAreaFilled(false);
-                board[row][col].setBorder(null);
+                //board[row][col].setContentAreaFilled(false);
+                //board[row][col].setBorder(null);
 
 
             }
