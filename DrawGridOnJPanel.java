@@ -11,19 +11,21 @@ public class DrawGridOnJPanel extends JPanel{
         super.paint(g);
         int frameWidth = getSize().width;
         int frameHeight = getSize().height;
-        int temp = 25;
+        //-28
+        int temp = -30;
         //vertical grid line
         while(temp<frameWidth){
-            temp+=45;
+            temp+=60;
             g.drawLine(temp  ,0,temp ,frameHeight);
         }
-
-        temp = 25;
+        //-27
+        temp = -29;
         //horizontal grid line
         while(temp < frameHeight){
-            temp += 45;
+            temp += 58;
             g.drawLine(0,temp ,frameWidth,temp );
         }
+        g.fillOval(446,431, 8, 8);
     }
 
     public static void main(String[] args) {

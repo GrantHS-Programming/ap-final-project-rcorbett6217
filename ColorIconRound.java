@@ -19,8 +19,8 @@ public class ColorIconRound implements Icon{
         Paint  op = g2d.getPaint();
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.setPaint(color);
-        x -= 17;
-        y -= 17;
+        x -= 20;
+        y -= 20;
         g2d.fillOval(x,y, size, size);
         g2d.setPaint(op);
     }

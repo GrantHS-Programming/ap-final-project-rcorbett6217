@@ -12,10 +12,8 @@ public class Gomoku implements ActionListener {
     JFrame window = new JFrame("Gomoku Board");
     DrawGridOnJPanel gridPanel = new DrawGridOnJPanel();
 
-    //JLayeredPane layers = new JLayeredPane();
-
-    JButton[][] board = new JButton[14][14];
-    int[][] boardMatrix = new int[14][14];
+    JButton[][] board = new JButton[15][15];
+    int[][] boardMatrix = new int[15][15];
 
     JFrame winScreen = new JFrame("Congratulations!");
 
@@ -31,19 +29,13 @@ public class Gomoku implements ActionListener {
 
     public Gomoku(){
 
-        //window.add(layers);
-
-        //JPanel topPanel = new JPanel();
-        //layers.add(topPanel, JLayeredPane.PALETTE_LAYER);
-        //DrawGridOnJPanel topPanel = new DrawGridOnJPanel();
-        //layers.add(topPanel, JLayeredPane.PALETTE_LAYER);
 
         winScreen.setLayout(new BorderLayout());
         winScreen.setSize(200,10);
         winScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        window.setLayout(new BorderLayout());
-        window.setSize(700, 700);
+        window.setLayout(new BorderLayout(0,0));
+        window.setSize(900, 900);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Container boardContainer = new Container();
         boardContainer.setLayout(new GridLayout(15,15));
@@ -51,13 +43,12 @@ public class Gomoku implements ActionListener {
             for (int col = 0; col < board[0].length; col++) {
                 board[row][col] = new JButton();
                 board[row][col].addActionListener(this);
-                board[row][col].setSize(50,50);
                 boardContainer.add(board[row][col]);
-                //board[row][col].setBackground(Color.LIGHT_GRAY);
-                //board[row][col].setOpaque(true);
-                //board[row][col].setBorderPainted(false);
-                //board[row][col].setContentAreaFilled(false);
-                //board[row][col].setBorder(null);
+                board[row][col].setBackground(Color.DARK_GRAY);
+                board[row][col].setOpaque(true);
+                board[row][col].setBorderPainted(false);
+                board[row][col].setContentAreaFilled(false);
+                board[row][col].setBorder(null);
 
 
             }
@@ -67,7 +58,7 @@ public class Gomoku implements ActionListener {
         window.add(boardContainer, BorderLayout.CENTER);
         window.setVisible(true);
         window.add(gridPanel);
-        gridPanel.setLocation(18,18);
+
     }
     public void checkWin(int player){
         for (int row = 0; row < boardMatrix.length; row++) {
@@ -121,16 +112,16 @@ public class Gomoku implements ActionListener {
         for (int row = 0; row < board.length; row++) {
             for (int col = 0; col < board[0].length; col++) {
                 if(e.getSource().equals(board[row][col])){
-                    board[row][col].setEnabled(false);
-                    //board[row][col].removeActionListener(this);
+                    //board[row][col].setEnabled(false);
+                    board[row][col].removeActionListener(this);
                     if(currentPlayer){
-                        board[row][col].setIcon(new ColorIconRound(35, Color.BLACK));
+                        board[row][col].setIcon(new ColorIconRound(40, Color.BLACK));
                         boardMatrix[row][col] = 1;
                         checkWin(1);
                         currentPlayer = false;
                     }
                     else{
-                        board[row][col].setIcon(new ColorIconRound(35, Color.WHITE));
+                        board[row][col].setIcon(new ColorIconRound(40, Color.WHITE));
                         boardMatrix[row][col] = 2;
                         checkWin(2);
                         currentPlayer = true;
