@@ -2,12 +2,15 @@
 import java.net.*;
 import java.io.*;
 
-public class Server
+public class Server extends Gomoku
 {
     //initialize socket and input stream
     private Socket		 socket = null;
     private ServerSocket server = null;
     private DataInputStream in	 = null;
+
+    private DataOutputStream out = null;
+
 
     // constructor with port
     public Server(int port)
@@ -30,7 +33,7 @@ public class Server
             String line = "";
 
             // reads message from client until "Over" is sent
-            while (!line.equals("Over"))
+            while (!line.equals("Over") && getChange())
             {
                 try
                 {

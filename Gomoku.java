@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Color;
+import java.util.ArrayList;
 import java.net.*;
 import java.io.*;
 
@@ -18,12 +19,24 @@ public class Gomoku implements ActionListener {
 
     private boolean currentPlayer = true;
 
+    private String coords = "start";
+
+    private boolean change = false;
+
+
     public static void main(String[] args) {
         new Gomoku();
     }
 
 
 
+    public String getCoords(){
+        return coords;
+    }
+
+    public boolean getChange(){
+        return change;
+    }
 
 
     public Gomoku(){
@@ -108,18 +121,23 @@ public class Gomoku implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        change = true;
         for (int row = 0; row < board.length; row++) {
             for (int col = 0; col < board[0].length; col++) {
                 if(e.getSource().equals(board[row][col])){
                     board[row][col].removeActionListener(this);
                     if(currentPlayer){
                         board[row][col].setIcon(new ColorIconRound(40, Color.BLACK));
+                        coords = row + ", " + col;
+                        change = false;
                         boardMatrix[row][col] = 1;
                         checkWin(1);
                         currentPlayer = false;
                     }
                     else{
                         board[row][col].setIcon(new ColorIconRound(40, Color.WHITE));
+                        coords = row + ", " + col;
+                        change = false;
                         boardMatrix[row][col] = 2;
                         checkWin(2);
                         currentPlayer = true;

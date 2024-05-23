@@ -3,7 +3,7 @@
 import java.io.*;
 import java.net.*;
 
-public class Client {
+public class Client extends Gomoku{
     // initialize socket and input output streams
     private Socket socket = null;
     private DataInputStream input = null;
@@ -37,10 +37,13 @@ public class Client {
         String line = "";
 
         // keep reading until "Over" is input
-        while (!line.equals("Over")) {
+
+        while (!line.equals(getCoords())) {
             try {
-                line = input.readLine();
+                //line = input.readLine();
+                line = getCoords();
                 out.writeUTF(line);
+                line = "";
             }
             catch (IOException i) {
                 System.out.println(i);
