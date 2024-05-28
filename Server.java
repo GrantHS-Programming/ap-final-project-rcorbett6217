@@ -30,15 +30,19 @@ public class Server extends Gomoku
             in = new DataInputStream(
                     new BufferedInputStream(socket.getInputStream()));
 
-            String line = "";
+            String coordsString = "0";
 
             // reads message from client until "Over" is sent
-            while (!line.equals("Over") && getChange())
+            while (!coordsString.equals("2000"))
             {
                 try
                 {
-                    line = in.readUTF();
-                    System.out.println(line);
+                    coordsString = in.readUTF();
+                    int coords = Integer.parseInt(coordsString);
+                    int row = coords/100;
+                    int col = coords%100;
+                    System.out.println(row + ", " + col);
+                    ;
 
                 }
                 catch(IOException i)

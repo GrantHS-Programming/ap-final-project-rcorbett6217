@@ -19,7 +19,7 @@ public class Gomoku implements ActionListener {
 
     private boolean currentPlayer = true;
 
-    private String coords = "start";
+    private String coords = "0";
 
     private boolean change = false;
 
@@ -31,11 +31,16 @@ public class Gomoku implements ActionListener {
 
 
     public String getCoords(){
+        //System.out.println(coords);
         return coords;
     }
 
     public boolean getChange(){
         return change;
+    }
+
+    public void setChange(boolean newChange){
+        change = newChange;
     }
 
 
@@ -128,16 +133,18 @@ public class Gomoku implements ActionListener {
                     board[row][col].removeActionListener(this);
                     if(currentPlayer){
                         board[row][col].setIcon(new ColorIconRound(40, Color.BLACK));
-                        coords = row + ", " + col;
-                        change = false;
+                        coords = row * 100 + col + "";
+                        //System.out.println(coords);
+                        change = true;
                         boardMatrix[row][col] = 1;
                         checkWin(1);
                         currentPlayer = false;
                     }
                     else{
                         board[row][col].setIcon(new ColorIconRound(40, Color.WHITE));
-                        coords = row + ", " + col;
-                        change = false;
+                        coords = row * 100 + col + "";
+                        //System.out.println(coords);
+                        change = true;
                         boardMatrix[row][col] = 2;
                         checkWin(2);
                         currentPlayer = true;

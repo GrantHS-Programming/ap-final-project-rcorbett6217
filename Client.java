@@ -16,7 +16,6 @@ public class Client extends Gomoku{
         try {
             socket = new Socket(address, port);
             System.out.println("Connected");
-
             // takes input from terminal
             input = new DataInputStream(System.in);
 
@@ -34,16 +33,17 @@ public class Client extends Gomoku{
         }
 
         // string to read message from input
-        String line = "";
+        String newCoords = "0";
 
         // keep reading until "Over" is input
 
-        while (!line.equals(getCoords())) {
+        while (!newCoords.equals("2000")) {
+
             try {
-                //line = input.readLine();
-                line = getCoords();
-                out.writeUTF(line);
-                line = "";
+                newCoords = getCoords();
+                //System.out.println(newCoords);
+                out.writeUTF(newCoords);
+
             }
             catch (IOException i) {
                 System.out.println(i);
