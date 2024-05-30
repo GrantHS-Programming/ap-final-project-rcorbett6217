@@ -17,11 +17,7 @@ public class Gomoku implements ActionListener {
 
     JFrame winScreen = new JFrame("Congratulations!");
 
-    private boolean currentPlayer = true;
-
-    private String coords = "0";
-
-    private boolean change = false;
+    private String coords = "9999";
 
 
     public static void main(String[] args) {
@@ -35,12 +31,9 @@ public class Gomoku implements ActionListener {
         return coords;
     }
 
-    public boolean getChange(){
-        return change;
-    }
-
-    public void setChange(boolean newChange){
-        change = newChange;
+    public void setPiece(int row, int col){
+        board[row][col].setIcon(new ColorIconRound(40, Color.BLUE));
+        boardMatrix[row][col] = 1;
     }
 
 
@@ -118,6 +111,19 @@ public class Gomoku implements ActionListener {
                             }
                         }
                     }
+                    //check down and to the left
+                    if(col >= 10 && row <= 10){
+                        if (boardMatrix[row + 1][col - 1] == player && boardMatrix[row + 2][col - 2] == player && boardMatrix[row + 3][col - 3] == player && boardMatrix[row + 4][col - 4] == player) {
+                            System.out.println("win");
+                            winScreen.setVisible(true);
+                            for (JButton[] jButtons : board) {
+                                for (int col1 = 0; col1 < board[0].length; col1++) {
+                                    jButtons[col1].setEnabled(false);
+                                }
+                            }
+                        }
+                    }
+
                 }
             }
 
@@ -126,29 +132,31 @@ public class Gomoku implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        change = true;
         for (int row = 0; row < board.length; row++) {
             for (int col = 0; col < board[0].length; col++) {
                 if(e.getSource().equals(board[row][col])){
                     board[row][col].removeActionListener(this);
+                    setPiece(row, col);
+                    coords = row * 100 + col + "";
+                    checkWin(1);
+                    checkWin(2);
+                    /*
                     if(currentPlayer){
-                        board[row][col].setIcon(new ColorIconRound(40, Color.BLACK));
+                        setPiece(row, col);
                         coords = row * 100 + col + "";
-                        //System.out.println(coords);
-                        change = true;
-                        boardMatrix[row][col] = 1;
                         checkWin(1);
-                        currentPlayer = false;
+                        checkWin(2);
+                        //currentPlayer = false;
                     }
                     else{
-                        board[row][col].setIcon(new ColorIconRound(40, Color.WHITE));
+                        setPiece(row, col);
                         coords = row * 100 + col + "";
                         //System.out.println(coords);
                         change = true;
-                        boardMatrix[row][col] = 2;
                         checkWin(2);
                         currentPlayer = true;
                     }
+                    */
                 }
             }
         }

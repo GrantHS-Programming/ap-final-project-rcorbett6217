@@ -1,4 +1,5 @@
 // A Java program for a Server
+import java.awt.*;
 import java.net.*;
 import java.io.*;
 
@@ -11,6 +12,28 @@ public class Server extends Gomoku
 
     private DataOutputStream out = null;
 
+    private boolean turn = true;
+
+    public void setPiece(int row, int col){
+        if(turn) {
+            if (boardMatrix[row][col] != 2) {
+                turn = false;
+                board[row][col].setIcon(new ColorIconRound(40, Color.BLACK));
+                boardMatrix[row][col] = 1;
+
+            }
+        }
+    }
+
+    public void setOppPiece(int row, int col){
+        if(row < 15 && col < 15) {
+            if(boardMatrix[row][col] != 1) {
+                board[row][col].setIcon(new ColorIconRound(40, Color.WHITE));
+                boardMatrix[row][col] = 2;
+                turn = true;
+            }
+        }
+    }
 
     // constructor with port
     public Server(int port)
@@ -30,7 +53,10 @@ public class Server extends Gomoku
             in = new DataInputStream(
                     new BufferedInputStream(socket.getInputStream()));
 
-            String coordsString = "0";
+            out = new DataOutputStream(socket.getOutputStream());
+
+            String coordsString = "-1";
+            String outCoords;
 
             // reads message from client until "Over" is sent
             while (!coordsString.equals("2000"))
@@ -39,10 +65,15 @@ public class Server extends Gomoku
                 {
                     coordsString = in.readUTF();
                     int coords = Integer.parseInt(coordsString);
-                    int row = coords/100;
-                    int col = coords%100;
-                    System.out.println(row + ", " + col);
-                    ;
+                    if(coords != -1) {
+                        int row = coords / 100;
+                        int col = coords % 100;
+                        System.out.println(row + ", " + col);
+                        setOppPiece(row, col);
+                    }
+                    outCoords = getCoords();
+                    out.writeUTF(outCoords);
+
 
                 }
                 catch(IOException i)
