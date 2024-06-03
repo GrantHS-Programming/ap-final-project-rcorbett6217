@@ -19,12 +19,25 @@ public class Gomoku implements ActionListener {
 
     private String coords = "9999";
 
+    //static boolean turn = true;
+
 
     public static void main(String[] args) {
         new Gomoku();
     }
 
+    /*
+    public static boolean getTurn(){
+        return turn;
+    }
 
+     */
+
+    /*public static void setTurn(boolean turn1){
+        turn = turn1;
+    }
+
+     */
 
     public String getCoords(){
         //System.out.println(coords);
@@ -135,28 +148,21 @@ public class Gomoku implements ActionListener {
         for (int row = 0; row < board.length; row++) {
             for (int col = 0; col < board[0].length; col++) {
                 if(e.getSource().equals(board[row][col])){
-                    board[row][col].removeActionListener(this);
+                    //board[row][col].removeActionListener(this);
                     setPiece(row, col);
                     coords = row * 100 + col + "";
                     checkWin(1);
                     checkWin(2);
                     /*
-                    if(currentPlayer){
-                        setPiece(row, col);
-                        coords = row * 100 + col + "";
-                        checkWin(1);
-                        checkWin(2);
-                        //currentPlayer = false;
+                    if(turn){
+                        turn = false;
                     }
                     else{
-                        setPiece(row, col);
-                        coords = row * 100 + col + "";
-                        //System.out.println(coords);
-                        change = true;
-                        checkWin(2);
-                        currentPlayer = true;
+                        turn = true;
                     }
-                    */
+
+                     */
+
                 }
             }
         }

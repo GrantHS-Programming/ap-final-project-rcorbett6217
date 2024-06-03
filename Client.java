@@ -12,22 +12,20 @@ public class Client extends Gomoku{
 
     private boolean turn = false;
 
-    public void setPiece(int row, int col){
-        if(turn) {
-            if (boardMatrix[row][col] != 1) {
-                turn = false;
-                board[row][col].setIcon(new ColorIconRound(40, Color.WHITE));
-                boardMatrix[row][col] = 2;
 
-            }
+    public void setPiece(int row, int col){
+        if (boardMatrix[row][col] != 1) {
+            board[row][col].removeActionListener(this);
+            board[row][col].setIcon(new ColorIconRound(40, Color.WHITE));
+            boardMatrix[row][col] = 2;
         }
     }
     public void setOppPiece(int row, int col){
-        if(row < 15 && col < 15) {
-            if(boardMatrix[row][col] != 2) {
+        if (row < 15 && col < 15) {
+            if (boardMatrix[row][col] != 2) {
                 board[row][col].setIcon(new ColorIconRound(40, Color.BLACK));
                 boardMatrix[row][col] = 1;
-                turn = true;
+                board[row][col].removeActionListener(this);
             }
         }
     }
@@ -59,21 +57,26 @@ public class Client extends Gomoku{
 
         // string to read message from input
         String newCoords = "-1";
-        String coordsString;
+        String inputData;
 
         // keep reading until "Over" is input
 
         while (!newCoords.equals("2000")) {
 
             try {
-                newCoords = getCoords();
-                out.writeUTF(newCoords);
-                coordsString = in.readUTF();
-                int coords = Integer.parseInt(coordsString);
+
+                inputData = in.readUTF();
+                String[] inputDataArray = inputData.split("@", 0);
+                int coords = Integer.parseInt(inputDataArray[0]);
+                turn = Boolean.parseBoolean(inputDataArray[1]);
                 int row = coords / 100;
                 int col = coords % 100;
                 System.out.println(row + ", " + col);
+                System.out.println(turn);
                 setOppPiece(row, col);
+                newCoords = getCoords();
+                out.writeUTF(newCoords + "@" + turn);
+
 
 
             }

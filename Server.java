@@ -14,23 +14,21 @@ public class Server extends Gomoku
 
     private boolean turn = true;
 
-    public void setPiece(int row, int col){
-        if(turn) {
-            if (boardMatrix[row][col] != 2) {
-                turn = false;
-                board[row][col].setIcon(new ColorIconRound(40, Color.BLACK));
-                boardMatrix[row][col] = 1;
 
-            }
+    public void setPiece(int row, int col){
+        if (boardMatrix[row][col] != 2) {
+            board[row][col].removeActionListener(this);
+            board[row][col].setIcon(new ColorIconRound(40, Color.BLACK));
+            boardMatrix[row][col] = 1;
         }
     }
 
     public void setOppPiece(int row, int col){
-        if(row < 15 && col < 15) {
-            if(boardMatrix[row][col] != 1) {
+        if (row < 15 && col < 15) {
+            if (boardMatrix[row][col] != 1) {
                 board[row][col].setIcon(new ColorIconRound(40, Color.WHITE));
                 boardMatrix[row][col] = 2;
-                turn = true;
+                board[row][col].removeActionListener(this);
             }
         }
     }
@@ -55,24 +53,27 @@ public class Server extends Gomoku
 
             out = new DataOutputStream(socket.getOutputStream());
 
-            String coordsString = "-1";
-            String outCoords;
+            String outCoords = "-1";
+            String inputData;
 
             // reads message from client until "Over" is sent
-            while (!coordsString.equals("2000"))
+            while (!outCoords.equals("2000"))
             {
                 try
                 {
-                    coordsString = in.readUTF();
-                    int coords = Integer.parseInt(coordsString);
+                    outCoords = getCoords();
+                    out.writeUTF(outCoords + "@" + turn);
+                    inputData = in.readUTF();
+                    String[] inputDataArray = inputData.split("@", 0);
+                    int coords = Integer.parseInt(inputDataArray[0]);
+                    turn = Boolean.parseBoolean(inputDataArray[1]);
                     if(coords != -1) {
                         int row = coords / 100;
                         int col = coords % 100;
                         System.out.println(row + ", " + col);
                         setOppPiece(row, col);
                     }
-                    outCoords = getCoords();
-                    out.writeUTF(outCoords);
+
 
 
                 }
