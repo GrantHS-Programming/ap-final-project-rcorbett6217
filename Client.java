@@ -20,10 +20,17 @@ public class Client extends Gomoku{
                 board[row][col].setIcon(new ColorIconRound(40, Color.WHITE));
                 boardMatrix[row][col] = 2;
                 turn = true;
+                try {
+                    out.writeUTF(row * 100 + col + "@" + turn);
+                    System.out.println("setPiece DATA SENT OUT");
+                } catch (IOException g){
+                    System.out.println("fail");
+                }
             }
         }
     }
     public void setOppPiece(int row, int col){
+        System.out.println("OPPPIECE TEST");
         if (row < 15 && col < 15) {
             //System.out.println("------------> BOUNDS IF");
             if (boardMatrix[row][col] != 2) {
@@ -78,12 +85,13 @@ public class Client extends Gomoku{
                     System.out.println(row + ", " + col);
                     System.out.println(turn);
                     setOppPiece(row, col);
+                    System.out.println("--------------> TURN TRUE END");
                 }
                 if(!turn) {
-                    System.out.println("----------> NOT TURN");
-                    newCoords = getCoords();
+                    //System.out.println("----------> NOT TURN");
+                    //newCoords = getCoords();
 
-                    out.writeUTF(newCoords + "@" + turn);
+                    //out.writeUTF(newCoords + "@" + turn);
                 }
 
 

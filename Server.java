@@ -22,15 +22,14 @@ public class Server extends Gomoku
                 board[row][col].removeActionListener(this);
                 board[row][col].setIcon(new ColorIconRound(40, Color.BLACK));
                 boardMatrix[row][col] = 1;
-                /*try{
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-                 */
                 turn = false;
                 System.out.println("----------------------------------------> NOTICE ME: " + turn);
+                try {
+                    out.writeUTF(row * 100 + col + "@" + turn);
+                    System.out.println("setPiece DATA SENT OUT");
+                } catch (IOException g){
+                    System.out.println("fail");
+                }
             }
         }
     }
@@ -76,11 +75,15 @@ public class Server extends Gomoku
                 {
                     if(turn) {
                         outCoords = getCoords();
-                        //System.out.println("-----> COORDS: " + outCoords);
-                        out.writeUTF(outCoords + "@" + turn);
+                        if(turn) {
+                            //System.out.println("-----> COORDS: " + outCoords);
+                            out.writeUTF(outCoords + "@" + turn);
+                            System.out.print("");
+                        }
                     }
                     if(!turn) {
                         inputData = in.readUTF();
+                        System.out.println("------> !turn inputData");
                         String[] inputDataArray = inputData.split("@", 0);
                         int coords = Integer.parseInt(inputDataArray[0]);
                         turn = Boolean.parseBoolean(inputDataArray[1]);
