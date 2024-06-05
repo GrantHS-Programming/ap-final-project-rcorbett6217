@@ -10,18 +10,22 @@ public class Client extends Gomoku{
     private DataInputStream in = null;
     private DataOutputStream out = null;
 
-    private boolean turn = false;
+    private boolean turn = true;
 
 
     public void setPiece(int row, int col){
-        if (boardMatrix[row][col] != 1) {
-            board[row][col].removeActionListener(this);
-            board[row][col].setIcon(new ColorIconRound(40, Color.WHITE));
-            boardMatrix[row][col] = 2;
+        if(!turn) {
+            if (boardMatrix[row][col] != 1) {
+                board[row][col].removeActionListener(this);
+                board[row][col].setIcon(new ColorIconRound(40, Color.WHITE));
+                boardMatrix[row][col] = 2;
+                turn = true;
+            }
         }
     }
     public void setOppPiece(int row, int col){
         if (row < 15 && col < 15) {
+            //System.out.println("------------> BOUNDS IF");
             if (boardMatrix[row][col] != 2) {
                 board[row][col].setIcon(new ColorIconRound(40, Color.BLACK));
                 boardMatrix[row][col] = 1;
@@ -64,19 +68,23 @@ public class Client extends Gomoku{
         while (!newCoords.equals("2000")) {
 
             try {
+                if(turn) {
+                    inputData = in.readUTF();
+                    String[] inputDataArray = inputData.split("@", 0);
+                    int coords = Integer.parseInt(inputDataArray[0]);
+                    turn = Boolean.parseBoolean(inputDataArray[1]);
+                    int row = coords / 100;
+                    int col = coords % 100;
+                    System.out.println(row + ", " + col);
+                    System.out.println(turn);
+                    setOppPiece(row, col);
+                }
+                if(!turn) {
+                    System.out.println("----------> NOT TURN");
+                    newCoords = getCoords();
 
-                inputData = in.readUTF();
-                String[] inputDataArray = inputData.split("@", 0);
-                int coords = Integer.parseInt(inputDataArray[0]);
-                turn = Boolean.parseBoolean(inputDataArray[1]);
-                int row = coords / 100;
-                int col = coords % 100;
-                System.out.println(row + ", " + col);
-                System.out.println(turn);
-                setOppPiece(row, col);
-                newCoords = getCoords();
-                out.writeUTF(newCoords + "@" + turn);
-
+                    out.writeUTF(newCoords + "@" + turn);
+                }
 
 
             }

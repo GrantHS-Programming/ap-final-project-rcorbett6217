@@ -149,8 +149,14 @@ public class Gomoku implements ActionListener {
             for (int col = 0; col < board[0].length; col++) {
                 if(e.getSource().equals(board[row][col])){
                     //board[row][col].removeActionListener(this);
-                    setPiece(row, col);
                     coords = row * 100 + col + "";
+                    try{
+                        Thread.sleep(100);
+                    } catch (InterruptedException f) {
+                        f.printStackTrace();
+                    }
+                    setPiece(row, col);
+
                     checkWin(1);
                     checkWin(2);
                     /*
