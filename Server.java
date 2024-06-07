@@ -16,17 +16,18 @@ public class Server extends Gomoku
 
 
     public void setPiece(int row, int col){
-        System.out.println("^^^^^^^^^^^^^^^^> TURN: " + turn + "    BOARD: " + boardMatrix[row][col]);
+        //System.out.println("^^^^^^^^^^^^^^^^> TURN: " + turn + "    BOARD: " + boardMatrix[row][col]);
         if(turn) {
             if (boardMatrix[row][col] != 2) {
                 board[row][col].removeActionListener(this);
                 board[row][col].setIcon(new ColorIconRound(40, Color.BLACK));
                 boardMatrix[row][col] = 1;
                 turn = false;
-                System.out.println("----------------------------------------> NOTICE ME: " + turn);
+                // System.out.println("----------------------------------------> NOTICE ME: " + turn);
                 try {
                     out.writeUTF(row * 100 + col + "@" + turn);
-                    System.out.println("setPiece DATA SENT OUT");
+                    System.out.println("setPiece DATA SENT OUT: " + turn);
+                    System.out.println("--------------------------");
                 } catch (IOException g){
                     System.out.println("fail");
                 }
@@ -77,13 +78,13 @@ public class Server extends Gomoku
                         outCoords = getCoords();
                         if(turn) {
                             //System.out.println("-----> COORDS: " + outCoords);
-                            out.writeUTF(outCoords + "@" + turn);
+                            //out.writeUTF(outCoords + "@" + turn);
                             System.out.print("");
                         }
                     }
                     if(!turn) {
                         inputData = in.readUTF();
-                        System.out.println("------> !turn inputData");
+                        System.out.println("Client turn DATA READ  ");
                         String[] inputDataArray = inputData.split("@", 0);
                         int coords = Integer.parseInt(inputDataArray[0]);
                         turn = Boolean.parseBoolean(inputDataArray[1]);

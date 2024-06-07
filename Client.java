@@ -22,7 +22,7 @@ public class Client extends Gomoku{
                 turn = true;
                 try {
                     out.writeUTF(row * 100 + col + "@" + turn);
-                    System.out.println("setPiece DATA SENT OUT");
+                    System.out.println("setPiece DATA SENT OUT: " + turn);
                 } catch (IOException g){
                     System.out.println("fail");
                 }
@@ -76,7 +76,9 @@ public class Client extends Gomoku{
 
             try {
                 if(turn) {
+                    System.out.println("---------------> TURN TRUE START: " + turn);
                     inputData = in.readUTF();
+                    System.out.println("Turn inputData READ");
                     String[] inputDataArray = inputData.split("@", 0);
                     int coords = Integer.parseInt(inputDataArray[0]);
                     turn = Boolean.parseBoolean(inputDataArray[1]);
@@ -85,13 +87,14 @@ public class Client extends Gomoku{
                     System.out.println(row + ", " + col);
                     System.out.println(turn);
                     setOppPiece(row, col);
-                    System.out.println("--------------> TURN TRUE END");
+                    System.out.println("--------------> TURN TRUE END: " + turn);
                 }
                 if(!turn) {
                     //System.out.println("----------> NOT TURN");
                     //newCoords = getCoords();
 
                     //out.writeUTF(newCoords + "@" + turn);
+                    System.out.print("");
                 }
 
 
