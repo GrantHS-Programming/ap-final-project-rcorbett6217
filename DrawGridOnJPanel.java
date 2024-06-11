@@ -1,7 +1,11 @@
 import java.awt.Graphics;
 import javax.swing.*;
+import java.awt.Color;
 
 public class DrawGridOnJPanel extends JPanel{
+
+    public static final Color gridColor = new Color(148,152,156);
+    //Original color: 206,212,218
     public DrawGridOnJPanel(){
         setSize(900,900);
         setVisible(true);
@@ -9,6 +13,7 @@ public class DrawGridOnJPanel extends JPanel{
 
     public void paint(Graphics g){
         super.paint(g);
+        g.setColor(gridColor);
         int frameWidth = getSize().width;
         int frameHeight = getSize().height;
         //-28
@@ -16,7 +21,7 @@ public class DrawGridOnJPanel extends JPanel{
         //vertical grid line
         while(temp<frameWidth){
             temp+=60;
-            g.drawLine(temp  ,0,temp ,frameHeight);
+            g.drawLine(temp  ,0, temp ,frameHeight);
         }
         //-27
         temp = -29;
@@ -36,6 +41,7 @@ public class DrawGridOnJPanel extends JPanel{
         g.fillOval(686, 199, 8, 8);
         //bottomright
         g.fillOval(686, 663, 8, 8);
+
     }
 
     public static void main(String[] args) {

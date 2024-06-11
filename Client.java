@@ -12,12 +12,45 @@ public class Client extends Gomoku{
 
     private boolean turn = true;
 
+    public static final Color TealPiece = new Color(24,188,156);
+
+    public void CrightWinSetPiece(int row, int col){
+        board[row][col].setIcon(new ColorIconRoundStar(40, TealPiece, Color.BLACK));
+        for (int i = 1; i < 5; i++) {
+            board[row][col + i].setIcon(new ColorIconRoundStar(40, TealPiece, Color.BLACK));
+        }
+    }
+    public void SrightWinSetPiece(int row, int col){
+        board[row][col].setIcon(new ColorIconRoundStar(40, Color.BLACK, TealPiece));
+        for (int i = 1; i < 5; i++) {
+            board[row][col + i].setIcon(new ColorIconRoundStar(40, Color.BLACK, TealPiece));
+        }
+    }
+    public void downWinSetPiece(int row, int col){
+        board[row][col].setIcon(new ColorIconRoundStar(40, TealPiece, Color.BLACK));
+        for (int i = 1; i < 5; i++) {
+            board[row + i][col].setIcon(new ColorIconRoundStar(40, TealPiece, Color.BLACK));
+        }
+    }
+
+    public void downRightWinSetPiece(int row, int col){
+        board[row][col].setIcon(new ColorIconRoundStar(40, TealPiece, Color.BLACK));
+        for (int i = 1; i < 5; i++) {
+            board[row + i][col + i].setIcon(new ColorIconRoundStar(40, TealPiece, Color.BLACK));
+        }
+    }
+    public void downLeftWinSetPiece(int row, int col){
+        board[row][col].setIcon(new ColorIconRoundStar(40, TealPiece, Color.BLACK));
+        for (int i = 1; i < 5; i++) {
+            board[row + i][col - i].setIcon(new ColorIconRoundStar(40, TealPiece, Color.BLACK));
+        }
+    }
 
     public void setPiece(int row, int col){
         if(!turn) {
             if (boardMatrix[row][col] != 1) {
                 board[row][col].removeActionListener(this);
-                board[row][col].setIcon(new ColorIconRound(40, Color.WHITE));
+                board[row][col].setIcon(new ColorIconRound(40, TealPiece));
                 boardMatrix[row][col] = 2;
                 turn = true;
                 try {

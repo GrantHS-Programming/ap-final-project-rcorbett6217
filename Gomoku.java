@@ -19,6 +19,7 @@ public class Gomoku implements ActionListener {
 
     private String coords = "9999";
 
+    public static final Color TealPiece = new Color(24,188,156);
 
     public static void main(String[] args) {
         new Gomoku();
@@ -52,7 +53,7 @@ public class Gomoku implements ActionListener {
                 board[row][col] = new JButton();
                 board[row][col].addActionListener(this);
                 boardContainer.add(board[row][col]);
-                board[row][col].setBackground(Color.DARK_GRAY);
+                board[row][col].setBackground(Color.lightGray);
                 board[row][col].setOpaque(true);
                 board[row][col].setBorderPainted(false);
                 board[row][col].setContentAreaFilled(false);
@@ -68,6 +69,23 @@ public class Gomoku implements ActionListener {
         window.add(gridPanel);
 
     }
+    public void SrightWinSetPiece(int row, int col){
+
+    }
+    public void CrightWinSetPiece(int row, int col){
+
+    }
+    public void downWinSetPiece(int row, int col){
+
+    }
+
+    public void downRightWinSetPiece(int row, int col){
+
+    }
+
+    public void downLeftWinSetPiece(int row, int col){
+
+    }
     public void checkWin(int player){
         for (int row = 0; row < boardMatrix.length; row++) {
             for (int col = 0; col < boardMatrix[0].length; col++) {
@@ -77,6 +95,13 @@ public class Gomoku implements ActionListener {
                         if (boardMatrix[row][col + 1] == player && boardMatrix[row][col + 2] == player && boardMatrix[row][col + 3] == player && boardMatrix[row][col + 4] == player) {
                             System.out.println("win");
                             winScreen.setVisible(true);
+                            if(player == 1){
+                                SrightWinSetPiece(row, col);
+                            }
+                            else{
+                                CrightWinSetPiece(row, col);
+                            }
+
                             for (JButton[] jButtons : board) {
                                 for (int col1 = 0; col1 < board[0].length; col1++) {
                                     jButtons[col1].setEnabled(false);
@@ -90,6 +115,7 @@ public class Gomoku implements ActionListener {
                         if (boardMatrix[row + 1][col] == player && boardMatrix[row + 2][col] == player && boardMatrix[row + 3][col] == player && boardMatrix[row + 4][col] == player) {
                             System.out.println("win");
                             winScreen.setVisible(true);
+                            downWinSetPiece(row, col);
                             for (JButton[] jButtons : board) {
                                 for (int col1 = 0; col1 < board[0].length; col1++) {
                                     jButtons[col1].setEnabled(false);
@@ -102,6 +128,7 @@ public class Gomoku implements ActionListener {
                         if (boardMatrix[row + 1][col + 1] == player && boardMatrix[row + 2][col + 2] == player && boardMatrix[row + 3][col + 3] == player && boardMatrix[row + 4][col + 4] == player) {
                             System.out.println("win");
                             winScreen.setVisible(true);
+                            downRightWinSetPiece(row, col);
                             for (JButton[] jButtons : board) {
                                 for (int col1 = 0; col1 < board[0].length; col1++) {
                                     jButtons[col1].setEnabled(false);
@@ -114,6 +141,7 @@ public class Gomoku implements ActionListener {
                         if (boardMatrix[row + 1][col - 1] == player && boardMatrix[row + 2][col - 2] == player && boardMatrix[row + 3][col - 3] == player && boardMatrix[row + 4][col - 4] == player) {
                             System.out.println("win");
                             winScreen.setVisible(true);
+                            downLeftWinSetPiece(row, col);
                             for (JButton[] jButtons : board) {
                                 for (int col1 = 0; col1 < board[0].length; col1++) {
                                     jButtons[col1].setEnabled(false);
@@ -126,6 +154,7 @@ public class Gomoku implements ActionListener {
             }
 
         }
+
     }
 
     @Override

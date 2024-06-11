@@ -1,17 +1,16 @@
-import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Paint;
-import java.awt.RenderingHints;
+import java.awt.*;
 import javax.swing.Icon;
-public class ColorIconRound implements Icon{
+public class ColorIconRoundStar implements Icon{
 
     private int size;
     private Paint color;
 
-    public ColorIconRound(int size, Paint color){
+    private Color starColor;
+
+    public ColorIconRoundStar(int size, Paint color, Color test){
         this.size = size;
         this.color = color;
+        starColor = test;
     }
     @Override
     public void paintIcon(Component c, Graphics g, int x, int y) {
@@ -24,7 +23,8 @@ public class ColorIconRound implements Icon{
 
         g2d.fillOval(x,y, size, size);
         g2d.setPaint(op);
-
+        Star star1 = new Star();
+        star1.draw(g, x + 20, y + 20, 18.0, starColor);
 
     }
 
@@ -38,3 +38,4 @@ public class ColorIconRound implements Icon{
         return 0;
     }
 }
+
