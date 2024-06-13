@@ -28,6 +28,7 @@ public class ColorIconRoundStar implements Icon{
 
     }
 
+
     @Override
     public int getIconWidth() {
         return 0;
