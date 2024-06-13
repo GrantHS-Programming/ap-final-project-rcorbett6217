@@ -3,9 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Color;
-import java.util.ArrayList;
-import java.net.*;
-import java.io.*;
+
 
 
 public class Gomoku implements ActionListener {
@@ -19,7 +17,7 @@ public class Gomoku implements ActionListener {
 
     private String coords = "9999";
 
-    public static final Color TealPiece = new Color(24,188,156);
+
 
     public static void main(String[] args) {
         new Gomoku();

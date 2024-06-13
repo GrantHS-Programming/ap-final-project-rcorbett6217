@@ -11,9 +11,7 @@ public class Client extends Gomoku{
     private DataOutputStream out = null;
 
     private boolean turn = true;
-    private boolean SWin = false;
 
-    private boolean CWin = false;
 
     public static final Color TealPiece = new Color(24,188,156);
 
@@ -22,56 +20,48 @@ public class Client extends Gomoku{
         for (int i = 1; i < 5; i++) {
             board[row][col + i].setIcon(new ColorIconRoundStar(40, Color.BLACK, TealPiece));
         }
-        SWin = true;
     }
     public void CrightWinSetPiece(int row, int col){
         board[row][col].setIcon(new ColorIconRoundStar(40, TealPiece, Color.BLACK));
         for (int i = 1; i < 5; i++) {
             board[row][col + i].setIcon(new ColorIconRoundStar(40, TealPiece, Color.BLACK));
         }
-        CWin = true;
     }
     public void SdownWinSetPiece(int row, int col){
         board[row][col].setIcon(new ColorIconRoundStar(40, Color.BLACK, TealPiece));
         for (int i = 1; i < 5; i++) {
             board[row + i][col].setIcon(new ColorIconRoundStar(40, Color.BLACK, TealPiece));
         }
-        SWin = true;
     }
     public void CdownWinSetPiece(int row, int col){
         board[row][col].setIcon(new ColorIconRoundStar(40, TealPiece, Color.BLACK));
         for (int i = 1; i < 5; i++) {
             board[row + i][col].setIcon(new ColorIconRoundStar(40, TealPiece, Color.BLACK));
         }
-        CWin = true;
     }
     public void SdownRightWinSetPiece(int row, int col){
         board[row][col].setIcon(new ColorIconRoundStar(40, Color.BLACK, TealPiece));
         for (int i = 1; i < 5; i++) {
             board[row + i][col + i].setIcon(new ColorIconRoundStar(40, Color.BLACK, TealPiece));
         }
-        SWin = true;
     }
     public void CdownRightWinSetPiece(int row, int col){
         board[row][col].setIcon(new ColorIconRoundStar(40, TealPiece, Color.BLACK));
         for (int i = 1; i < 5; i++) {
             board[row + i][col + i].setIcon(new ColorIconRoundStar(40, TealPiece, Color.BLACK));
         }
-        CWin = true;
     }
     public void SdownLeftWinSetPiece(int row, int col){
         board[row][col].setIcon(new ColorIconRoundStar(40, Color.BLACK, TealPiece));
         for (int i = 1; i < 5; i++) {
             board[row + i][col - i].setIcon(new ColorIconRoundStar(40, Color.BLACK, TealPiece));
         }
-        SWin = true;
     }
     public void CdownLeftWinSetPiece(int row, int col){
         board[row][col].setIcon(new ColorIconRoundStar(40, TealPiece, Color.BLACK));
         for (int i = 1; i < 5; i++) {
             board[row + i][col - i].setIcon(new ColorIconRoundStar(40, TealPiece, Color.BLACK));
         }
-        CWin = true;
     }
     public void setPiece(int row, int col){
         if(!turn) {
@@ -81,7 +71,7 @@ public class Client extends Gomoku{
                 boardMatrix[row][col] = 2;
                 turn = true;
                 try {
-                    out.writeUTF(row * 100 + col + "@" + turn + "@" + CWin);
+                    out.writeUTF(row * 100 + col + "@" + turn);
                     System.out.println("setPiece DATA SENT OUT: " + turn);
                 } catch (IOException g){
                     System.out.println("fail");
@@ -143,7 +133,6 @@ public class Client extends Gomoku{
                     String[] inputDataArray = inputData.split("@", 0);
                     int coords = Integer.parseInt(inputDataArray[0]);
                     turn = Boolean.parseBoolean(inputDataArray[1]);
-                    SWin = Boolean.parseBoolean(inputDataArray[2]);
                     int row = coords / 100;
                     int col = coords % 100;
                     System.out.println(row + ", " + col);
